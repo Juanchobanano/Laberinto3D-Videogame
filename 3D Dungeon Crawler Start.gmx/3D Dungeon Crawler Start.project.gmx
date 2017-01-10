@@ -4,7 +4,14 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sounds name="Walk">
+      <sound>sound\sn_walk_gravel</sound>
+    </sounds>
+    <sounds name="Music">
+      <sound>sound\sn_starwars</sound>
+    </sounds>
+  </sounds>
   <sprites name="sprites">
     <sprites name="Menu">
       <sprite>sprites\spr_baius</sprite>
@@ -21,6 +28,11 @@
       <sprite>sprites\spr_grass</sprite>
       <sprite>sprites\spr_level</sprite>
       <sprite>sprites\spr_gem_gui</sprite>
+      <sprite>sprites\spr_door</sprite>
+      <sprite>sprites\spr_enemy</sprite>
+    </sprites>
+    <sprites name="Joystick">
+      <sprite>sprites\spr_boton</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background"/>
@@ -32,8 +44,8 @@
   <fonts name="fonts">
     <font>fonts\font_titulo</font>
     <font>fonts\font_top_70</font>
-    <font>fonts\font_regime_150</font>
-    <font>fonts\font_top_30</font>
+    <font>fonts\font_regime_80</font>
+    <font>fonts\font_top_15</font>
   </fonts>
   <objects name="objects">
     <objects name="Control Game">
@@ -44,16 +56,34 @@
       <objects name="Ini World">
         <object>objects\o_ini_world</object>
         <object>objects\PlayerStats</object>
+        <object>objects\o_player</object>
+        <object>objects\oLevels</object>
         <object>objects\o_ceiling_and_floor</object>
       </objects>
-      <object>objects\o_wall</object>
-      <object>objects\o_gem</object>
-      <object>objects\o_player</object>
-      <object>objects\o_title</object>
-      <object>objects\oLevels</object>
+      <objects name="Walls">
+        <object>objects\o_walls</object>
+        <object>objects\o_wall</object>
+        <object>objects\o_door</object>
+      </objects>
+      <objects name="Gems&amp;Keys">
+        <object>objects\o_title</object>
+        <object>objects\o_gem</object>
+      </objects>
+      <objects name="Enemy">
+        <object>objects\o_enemy_hor</object>
+        <object>objects\o_enemy_ver</object>
+      </objects>
     </objects>
     <objects name="Menu">
       <object>objects\Baius</object>
+    </objects>
+    <objects name="Joystick">
+      <object>objects\Button_Father</object>
+      <object>objects\Button_Up</object>
+      <object>objects\Button_Down</object>
+      <object>objects\Button_Left</object>
+      <object>objects\Button_Right</object>
+      <object>objects\Button_A</object>
     </objects>
   </objects>
   <rooms name="rooms">
@@ -65,6 +95,7 @@
     <rooms name="Games">
       <room>rooms\game1</room>
     </rooms>
+    <room>rooms\room5</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

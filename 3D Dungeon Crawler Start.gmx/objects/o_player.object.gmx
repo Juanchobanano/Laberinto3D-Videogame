@@ -39,12 +39,49 @@ target_x = x;
 target_y = y;
 target_z = z;
 
-// Start 3D Drawing
+
+
+// Create emitter.
+//player_em = audio_emitter_create();
+
+ 
+/*audio_stop_sound(sn_starwars);
+wars = audio_emitter_create();
+audio_emitter_falloff(wars, 1, 50, 1);
+audio_emitter_position(wars, 288, 288, 16);
+audio_emitter_gain(wars, .6);
+audio_play_sound_on(wars, sn_starwars, 1, 0);*/
+
+// Start 3D Drawi
 d3d_start();
 //d3d_set_perspective(true);
 
 /*dark_purple = make_colour_rgb(27, 3, 59);
-d3d_set_fog(true, dark_purple, 16, 128);
+d3d_set_fog(true, dark_purple, 96, 128);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Destroy emitter.
+audio_emitter_free(player_em);
 </string>
           </argument>
         </arguments>
@@ -67,7 +104,89 @@ d3d_set_fog(true, dark_purple, 16, 128);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(z == 48){ target_z = 16; }
+            <string>// Jump control.
+if(z == 48){ target_z = 16; }
+
+// Input process.
+if(keyboard_check_pressed(vk_left)){
+    target_dir += 90;
+}
+
+if(keyboard_check_pressed(vk_right)){
+    target_dir -= 90;
+}
+
+if(keyboard_check_pressed(vk_up)){
+    var vect_x = lengthdir_x(32, target_dir);
+    var vect_y = lengthdir_y(32, target_dir);
+    audio_play_sound(sn_walk_gravel, 1, 0);
+    if(!place_meeting(target_x + vect_x, target_y + vect_y, o_walls)){
+        target_x += vect_x;
+        target_y += vect_y;
+    }
+}
+
+if(keyboard_check_pressed(vk_down)){
+    var vect_x = lengthdir_x(32, target_dir);
+    var vect_y = lengthdir_y(32, target_dir);
+    audio_play_sound(sn_walk_gravel, 1, 0);
+    if(!place_meeting(target_x - vect_x, target_y - vect_y, o_walls)){
+        target_x -= vect_x;
+        target_y -= vect_y;
+    }
+}
+
+if(keyboard_check_pressed(vk_space)){
+    if(z == 16){ target_z = z + 32; }
+}
+
+/*
+
+audio_emitter_pitch(player_em, irandom_range(1.2, 1.5));
+audio_emitter_gain(player_em, .8);
+audio_emitter_position(player_em, x, y, z);
+audio_emitter_falloff(player_em, 50, 100, 1);
+audio_play_sound_on(player_em, sn_walk_gravel, 0, 1);
+
+*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Draw controls.
+
+// Set gui size.
+display_set_gui_size(view_wview[0], view_hview[0]);
+
+// Create controls.
+draw_sprite(spr_boton, 0, 47, 312);
+draw_sprite(spr_boton, 0, 47, 312);
+draw_sprite(spr_boton, 0, 47, 312);
+draw_sprite(spr_boton, 0, 47, 312);
+draw_sprite(spr_boton, 0, 47, 312);
+B_up = instance_create(47, 312, Button_Up);
+B_down = instance_create(149, 312, Button_Down);
+B_left = instance_create(494, 312, Button_Left);
+B_right = instance_create(592, 312, Button_Right);
+B_A = instance_create(592, 216, Button_A);
 </string>
           </argument>
         </arguments>
@@ -114,134 +233,6 @@ d3d_light_define_point(1, x, y, z, 128, c_white);
 d3d_light_enable(1, true);
 //d3d_light_define_ambient($000000)
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="40">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>var vect_x = lengthdir_x(32, target_dir);
-var vect_y = lengthdir_y(32, target_dir);
-
-if(!place_meeting(target_x - vect_x, target_y - vect_y, o_wall)){
-    target_x -= vect_x;
-    target_y -= vect_y;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="39">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>target_dir -= 90;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="38">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>var vect_x = lengthdir_x(32, target_dir);
-var vect_y = lengthdir_y(32, target_dir);
-
-if(!place_meeting(target_x + vect_x, target_y + vect_y, o_wall)){
-    target_x += vect_x;
-    target_y += vect_y;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="37">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>target_dir += 90;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="32">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// Jump!
-if(z == 16){ target_z = z + 32; }
 </string>
           </argument>
         </arguments>

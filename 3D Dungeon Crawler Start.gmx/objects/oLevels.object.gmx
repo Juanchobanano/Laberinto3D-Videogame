@@ -40,7 +40,7 @@ sidebar_alpha = 0;
 mouse_yprevious = mouse_y;
 pressed = -1;
 released = 1000000;
-banner_height = 140;
+banner_height = 80;
 
 // Create buttoms.
 //if(room == Room_Niveles or room == Room_Logros){
@@ -125,7 +125,8 @@ else
           <argument>
             <kind>1</kind>
             <string>/// Draw everything!
-display_set_gui_size(1280, 720);
+//display_set_gui_size(1280, 720);
+display_set_gui_size(640, 360);
 draw_set_halign(fa_center);
   
 // Declare local variables.
@@ -138,11 +139,16 @@ height = 0;
 // Draw the levels.
 Draw_Levels(20);
 
+//show_debug_message(display_mouse_get_x());
+//show_debug_message(display_mouse_get_y());
+
 // Draw the banner and the title.
 //draw_sprite(spr_titulo_niveles, 0, 151, 0);
 
+
+draw_sprite_stretched(spr_sky, 1, 147, 0, 352, 70);
 //draw_sprite_stretched(spr_level, 1, 300, 0, 680, 100);
-draw_sprite_stretched(spr_sky, 1, 240, 0, 800, 120);
+//draw_sprite_stretched(spr_sky, 1, 240, 0, 800, 120);
 
 draw_set_color(c_white);
 //draw_set_font(font_divaro_niveles30);
@@ -150,31 +156,31 @@ draw_set_color(c_white);
 //draw_set_font(font_game_26);
 
 
-draw_set_font(font_regime_150);
+draw_set_font(font_regime_80);
 if(idioma == "en"){
   //  var xs = 151 + sprite_get_width(spr_titulo_niveles)/2 - string_width("Level Selection")/2;
   //  var ys = sprite_get_height(spr_titulo_niveles)/2 - string_height("Level Selection")/2;
-    draw_text(view_wport[0]/2, 0, "Level Selection");
+    draw_text(view_wview[0]/2, 0, "Level Selection");
 }else if(idioma == "es"){
    // var xs = 151 + sprite_get_width(spr_titulo_niveles)/2 - string_width("Seleccion de Nivel")/2;
     //var ys =  sprite_get_height(spr_titulo_niveles)/2 - string_height("Seleccion de Nivel")/2;
-    draw_text(view_wport[0]/2, 0, "Seleccion de Nivel");
+    draw_text(view_wview[0]/2, 0, "Seleccion de Nivel");
 }
 
-draw_set_font(font_top_30);
+draw_set_font(font_top_15);
 draw_text(
-    view_wport[0] - string_width("(C). BAIUS") + 50, 
-    view_hport[0] - string_height("(C). BAIUS") - 5, 
+    view_wview[0] - string_width("(C). BAIUS") + 20, 
+    view_hview[0] - string_height("(C). BAIUS") - 5, 
     "(C). BAIUS"
 );
 
 
 // Draw the position indicator bar on the right
-bar_pos = ((view_hport[0]-banner_height)/height) * offset*-1;
-bar_hei = ((view_hport[0]-banner_height)/height) * (view_hport[0]-banner_height)
+bar_pos = ((view_hview[0]-banner_height)/height) * offset*-1;
+bar_hei = ((view_hview[0]-banner_height)/height) * (view_hview[0]-banner_height)
 draw_set_color(c_white);
 draw_set_alpha(sidebar_alpha);
-draw_rectangle(view_xport[0] + view_wport[0], view_yport[0] + banner_height + bar_pos, view_xport[0] + view_wport[0] - 8, view_yview+banner_height+bar_pos+bar_hei, 0);
+draw_rectangle(view_xview[0] + view_wview[0], view_yview[0] + banner_height + bar_pos, view_xview[0] + view_wview[0] - 8, view_yview+banner_height+bar_pos+bar_hei, 0);
 draw_set_alpha(1);
 draw_set_halign(noone);
 </string>
